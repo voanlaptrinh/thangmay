@@ -43,8 +43,8 @@
     <!-- Font Awesome Icons -->
     <link href="{{ asset('/admin/css/toastr.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/source/css/bootstrap.css?v=2.6">
-    <link rel="stylesheet" type="text/css" href="/source/css/style.css?v=12.0">
+    {{-- <link rel="stylesheet" type="text/css" href="/source/css/bootstrap.css?v=2.6">
+    <link rel="stylesheet" type="text/css" href="/source/css/style.css?v=12.0"> --}}
     <link rel="stylesheet" href="{{ asset('clients/css/style.css') }}">
 
     <script>
@@ -758,7 +758,7 @@
                 </p>
 
                 <!-- Form -->
-                <form action="{{ route('contact.store') }}#contact" method="POST" class="space-y-4">
+                <form action="{{ route('contact.store') }}" method="POST" class="space-y-4">
                     @csrf
 
                     <!-- Name Field -->
@@ -1014,12 +1014,15 @@
             toastr.warning("{{ Session::get('warning') }}");
         @endif
 
-        // Validate form trước khi submit
+        // Validate và submit form bằng AJAX
         document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form[action="{{ route('contact.store') }}#contact"]');
+            const form = document.querySelector('form[action="{{ route('contact.store') }}"]');
+            const submitButton = form.querySelector('button[type="submit"]');
 
             if (form) {
                 form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Luôn prevent default để xử lý bằng AJAX
+
                     // Xóa các error cũ
                     const oldErrors = form.querySelectorAll('.error-message');
                     oldErrors.forEach(error => error.remove());
@@ -1075,16 +1078,54 @@
                     }
 
                     if (!isValid) {
-                        e.preventDefault();
-
                         // Focus vào field lỗi đầu tiên
                         if (firstErrorField) {
                             firstErrorField.focus();
-                            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }
-
                         toastr.error('Vui lòng kiểm tra lại thông tin!');
+                        return;
                     }
+
+                    // Nếu validate pass, submit bằng AJAX
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>ĐANG GỬI...';
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>GỬI THÔNG TIN NGAY';
+
+                        if (data.success) {
+                            toastr.success(data.message || 'Cảm ơn bạn đã đăng ký! Chúng tôi sẽ liên hệ với bạn trong vòng 30 phút.');
+                            form.reset(); // Clear form
+                        } else {
+                            // Hiển thị lỗi validation từ server
+                            if (data.errors) {
+                                for (let field in data.errors) {
+                                    const input = form.querySelector(`[name="${field}"]`);
+                                    if (input) {
+                                        showError(input, data.errors[field][0]);
+                                    }
+                                }
+                            }
+                            toastr.error(data.message || 'Có lỗi xảy ra, vui lòng thử lại!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>GỬI THÔNG TIN NGAY';
+                        toastr.error('Có lỗi xảy ra, vui lòng thử lại!');
+                    });
                 });
 
                 // Hàm hiển thị lỗi
@@ -1109,6 +1150,26 @@
                         }
                     });
                 });
+
+                // Khôi phục vị trí scroll sau khi trang load (khi có lỗi hoặc success)
+                @if ($errors->any() || session('success') || session('error'))
+                    const savedPosition = sessionStorage.getItem('contactFormScrollPosition');
+                    if (savedPosition) {
+                        // Đợi trang load xong rồi scroll
+                        window.scrollTo({
+                            top: parseInt(savedPosition),
+                            behavior: 'instant'
+                        });
+                    }
+                @endif
+
+                // Xóa vị trí đã lưu sau khi submit thành công
+                @if (session('success'))
+                    // Chỉ xóa sau 1 giây để đảm bảo scroll đã hoàn tất
+                    setTimeout(() => {
+                        sessionStorage.removeItem('contactFormScrollPosition');
+                    }, 1000);
+                @endif
             }
         });
 

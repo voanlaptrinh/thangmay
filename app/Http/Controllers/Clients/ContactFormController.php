@@ -33,6 +33,14 @@ class ContactFormController extends Controller
             ]);
 
             if ($validator->fails()) {
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'errors' => $validator->errors(),
+                        'message' => 'Vui lòng kiểm tra lại thông tin!'
+                    ], 422);
+                }
+
                 return redirect()->back()
                     ->withErrors($validator)
                     ->withInput()
@@ -42,10 +50,24 @@ class ContactFormController extends Controller
             // Lưu vào database
             Contacts::create($validator->validated());
 
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Cảm ơn bạn đã đăng ký! Chúng tôi sẽ liên hệ với bạn trong vòng 30 phút.'
+                ]);
+            }
+
             return redirect()->back()
                 ->with('success', 'Cảm ơn bạn đã đăng ký! Chúng tôi sẽ liên hệ với bạn trong vòng 30 phút.');
 
         } catch (Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Có lỗi xảy ra, vui lòng thử lại sau!'
+                ], 500);
+            }
+
             return redirect()->back()
                 ->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau!')
                 ->withInput();
