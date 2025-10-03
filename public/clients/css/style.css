@@ -1,0 +1,117 @@
+/* Tablet (≤991px): Giảm nhẹ font-size
+  2. Mobile Landscape (≤767px): Font nhỏ hơn, điều chỉnh padding
+  3. Mobile Portrait (≤575px): */
+
+
+@media (max-width: 991px) {
+    .font-heading {
+        font-size: 24px;
+    }
+}
+
+@media (max-width:767px) {
+    .font-heading {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 575px) {
+    .font-heading {
+        font-size: 22px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .font-heading {
+        font-size: 26px;
+    }
+}
+
+/* Mobile Menu Sidebar - Slide from Right */
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 9999;
+    overflow-y: auto;
+    /* padding-top: 60px; */
+}
+
+#mobile-menu.active {
+    right: 0;
+}
+
+/* Overlay khi menu mở */
+#mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+#mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Active state for navigation links */
+.nav-link.active {
+    background-color: rgba(75, 133, 196, 0.8) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-link.active {
+    background-color: #3470ad !important;
+    color: white !important;
+    font-weight: 700;
+}
+
+/* Line clamp for text truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Slider cursor */
+#slider-container {
+    cursor: grab;
+    user-select: none;
+}
+
+#slider-container:active {
+    cursor: grabbing;
+}
+
+#slider-wrapper.dragging {
+    cursor: grabbing;
+}
+
+#slider-wrapper.dragging > * {
+    pointer-events: none;
+}
+
+/* Cho phép click vào link khi không đang kéo */
+#slider-wrapper:not(.dragging) a {
+    pointer-events: auto;
+}
