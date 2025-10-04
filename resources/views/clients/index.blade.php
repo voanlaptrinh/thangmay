@@ -1582,6 +1582,9 @@
             function cloneProjectSlides() {
                 projectSliderWrapper.innerHTML = '';
 
+                // Kiểm tra nếu không có slides
+                if (projectTotalSlides === 0) return;
+
                 // Clone slides cuối vào đầu
                 for (let i = Math.max(0, projectTotalSlides - projectSlidesPerView); i < projectTotalSlides; i++) {
                     const clone = projectOriginalSlides[i].cloneNode(true);
@@ -1595,7 +1598,7 @@
                 });
 
                 // Clone slides đầu vào cuối
-                for (let i = 0; i < projectSlidesPerView; i++) {
+                for (let i = 0; i < Math.min(projectSlidesPerView, projectTotalSlides); i++) {
                     const clone = projectOriginalSlides[i].cloneNode(true);
                     projectSliderWrapper.appendChild(clone);
                 }
