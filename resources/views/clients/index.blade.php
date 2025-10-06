@@ -481,10 +481,10 @@
                             @foreach ($thangmays as $thangmay)
                                 <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
                                     <div
-                                        class="group bg-ntd-grey rounded-[5px] overflow-hidden shadow-2xl hover:shadow-ntd-blue/50 transition duration-500 transform hover:-translate-y-2">
+                                        class="group bg-white rounded-[5px] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border-2 border-gray-200 hover:border-ntd-blue transition duration-500 transform hover:-translate-y-2">
                                         @if ($thangmay->image)
                                             <img src="{{ asset($thangmay->image) }}" alt="{{ $thangmay->title }}"
-                                                class="w-full object-cover group-hover:scale-105 transition duration-500" style=" height: 480px;">
+                                                class="w-full object-cover group-hover:scale-105 transition duration-500 shadow-2xl border-4 border-white" style=" height: 480px;">
                                         @else
                                             <div
                                                 class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center" style=" height: 480px;">
@@ -743,7 +743,7 @@
     <!-- CTA: FORM TƯ VẤN & BÁO GIÁ -->
     <section id="contact" class="py-12 lg:py-16 bg-ntd-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
-            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl bg-ntd-blue">
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-2xl ">
                 <!-- Card Header with Icon -->
                 <div class="text-center mb-6 p-4 rounded-xl"
                     style="background: linear-gradient(135deg, #3470ad 0%, #4b85c4 100%);">
