@@ -563,7 +563,7 @@
                             @foreach ($thangmays as $thangmay)
                                 <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
                                     <div
-                                        class="group bg-white rounded-[5px] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border-2 border-gray-200 hover:border-ntd-blue transition duration-500 transform hover:-translate-y-2">
+                                        class="group bg-white rounded-[5px] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border-2 border-ntd-light transition duration-500 transform hover:-translate-y-2">
                                         @if ($thangmay->image)
                                             <img src="{{ asset($thangmay->image) }}" alt="{{ $thangmay->title }}"
                                                 class="w-full object-cover group-hover:scale-105 transition duration-500 shadow-2xl border-4 border-white elevator-image cursor-pointer"
