@@ -136,7 +136,7 @@
             border-radius: 0;
         }
 
-        .nav-link.active > * {
+        .nav-link.active>* {
             transform: skewX(15deg);
             display: inline-block;
         }
@@ -149,6 +149,7 @@
 
         /* Responsive fixes for tablet */
         @media (min-width: 768px) and (max-width: 1023px) {
+
             /* Header adjustments */
             .container {
                 padding-left: 1rem !important;
@@ -215,7 +216,7 @@
             }
 
             /* Product slider */
-            #slider-wrapper > div {
+            #slider-wrapper>div {
                 width: 50% !important;
             }
 
@@ -261,6 +262,74 @@
                 font-size: 1.125rem !important;
             }
         }
+
+        /* Floating Buttons */
+        .floating-btn {
+            position: fixed;
+            bottom: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            color: white;
+        }
+
+        .floating-zalo {
+            left: 20px;
+            background: linear-gradient(135deg, #0068FF, #0095FF);
+        }
+
+        .floating-phone {
+            right: 20px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating-btn:hover {
+            animation: bounce 0.6s ease;
+        }
+
+        @media (max-width: 768px) {
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+                bottom: 20px;
+            }
+
+            .floating-zalo {
+                left: 15px;
+            }
+
+            .floating-phone {
+                right: 15px;
+            }
+        }
     </style>
 </head>
 
@@ -275,10 +344,11 @@
 
                 <!-- Logo & Company -->
                 <div class="flex items-center space-x-2 md:space-x-4">
-                    <img src="{{asset('/icons/logo.svg')}}"
-                        alt="Logo Công ty TNHH tự động hoá NTD" class="h-10 md:h-12 w-auto object-contain rounded-lg">
+                    <img src="{{ asset('/icons/logo.svg') }}" alt="Logo Công ty TNHH tự động hoá NTD"
+                        class="h-10 md:h-12 w-auto object-contain rounded-lg">
                     <div>
-                        <h1 class="text-lg md:text-xl lg:text-2xl font-heading font-extrabold text-ntd-blue uppercase leading-tight">
+                        <h1
+                            class="text-lg md:text-xl lg:text-2xl font-heading font-extrabold text-ntd-blue uppercase leading-tight">
                             CÔNG TY TNHH TỰ ĐỘNG HOÁ NTD
                         </h1>
                         <p class="text-xs md:text-sm text-gray-500 italic">
@@ -291,7 +361,8 @@
                 <div class="flex items-center space-x-1 md:space-x-2 text-xs md:text-sm">
                     <i class="fas fa-phone-alt text-red-600 text-base md:text-lg"></i>
                     <p class="text-gray-600 font-medium">Hotline:</p>
-                    <p class="text-red-600 font-bold text-base md:text-lg">{{ get_config()->hotline ?? '1900 69 61' }}</p>
+                    <p class="text-red-600 font-bold text-base md:text-lg">{{ get_config()->hotline ?? '1900 69 61' }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -299,21 +370,24 @@
     </header>
 
     <!-- 2. BOTTOM HEADER (Main Navbar) - sẽ dính trên cùng -->
-    <div id="main-nav" class="sticky top-0 z-50 h-16 flex items-center shadow-md transition-all duration-300" style="background: #08498B;">
+    <div id="main-nav" class="sticky top-0 z-50 h-16 flex items-center shadow-md transition-all duration-300"
+        style="background: #08498B;">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-full">
 
             <!-- Logo bên trái (mobile) -->
             <div class="md:hidden flex items-center">
-                <img src="{{asset('/icons/logo.svg')}}" alt="Logo NTD" class="h-10 w-auto object-contain">
+                <img src="{{ asset('/icons/logo.svg') }}" alt="Logo NTD" class="h-10 w-auto object-contain">
             </div>
 
             <!-- Logo trong nav - chiếm vị trí cố định (chỉ PC) -->
-            <div id="nav-logo" class="hidden md:flex items-center opacity-0 transition-opacity duration-300 w-32 flex-shrink-0">
-                <img src="{{asset('/icons/logo.svg')}}" alt="Logo NTD" class="h-10 w-auto object-contain">
+            <div id="nav-logo"
+                class="hidden md:flex items-center opacity-0 transition-opacity duration-300 w-32 flex-shrink-0">
+                <img src="{{ asset('/icons/logo.svg') }}" alt="Logo NTD" class="h-10 w-auto object-contain">
             </div>
 
             <!-- Navigation -->
-            <nav class="hidden md:flex flex-1 space-x-2 lg:space-x-6 text-sm lg:text-base font-semibold justify-center">
+            <nav
+                class="hidden md:flex flex-1 space-x-2 lg:space-x-6 text-sm lg:text-base font-semibold justify-center">
                 <a href="#" data-section="home"
                     class="nav-link active flex items-center gap-1 lg:gap-2 text-white hover:text-white transition duration-300 p-2">
                     <i class="fas fa-home text-sm lg:text-base"></i>
@@ -321,17 +395,23 @@
 
                 </a>
                 <a href="#about" data-section="about"
-                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>GIỚI THIỆU</span></a>
+                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>GIỚI
+                        THIỆU</span></a>
                 <a href="#products" data-section="products"
-                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>THANG MÁY</span></a>
+                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>THANG
+                        MÁY</span></a>
                 <a href="#components" data-section="components"
-                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>LINH KIỆN</span></a>
+                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>LINH
+                        KIỆN</span></a>
                 <a href="#services" data-section="services"
-                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>DỊCH VỤ</span></a>
+                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>DỊCH
+                        VỤ</span></a>
                 <a href="#projects" data-section="projects"
-                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>DỰ ÁN</span></a>
+                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>DỰ
+                        ÁN</span></a>
                 <a href="#contact" data-section="contact"
-                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>LIÊN HỆ</span></a>
+                    class="nav-link text-white hover:text-white transition duration-300 p-2 rounded-lg"><span>LIÊN
+                        HỆ</span></a>
             </nav>
 
             <!-- Mobile Menu Button (bên phải) -->
@@ -350,7 +430,7 @@
     <div id="mobile-menu" class="md:hidden bg-white shadow-2xl pb-4">
         <!-- Header with Logo and Close Button -->
         <div class="flex items-center justify-end px-4 py-4 border-b border-gray-200">
-           
+
             <button id="mobile-menu-close"
                 class="w-10 h-10 flex items-center justify-center text-ntd-dark hover:text-ntd-blue hover:bg-ntd-grey rounded-full transition duration-200">
                 <i class="fas fa-times text-2xl"></i>
@@ -383,7 +463,7 @@
                 Hệ</a>
 
             <!-- Mobile Search -->
-           
+
         </nav>
     </div>
 
@@ -398,7 +478,8 @@
                 class="font-heading text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold mb-3 md:mb-4 leading-tight uppercase tracking-wider">
                 THANG MÁY NTD: GIẢI PHÁP NÂNG TẦM KHÔNG GIAN SỐNG
             </h1>
-            <p class="text-base md:text-lg lg:text-xl xl:text-2xl mb-6 md:mb-8 lg:mb-10 max-w-4xl mx-auto font-light text-gray-200">
+            <p
+                class="text-base md:text-lg lg:text-xl xl:text-2xl mb-6 md:mb-8 lg:mb-10 max-w-4xl mx-auto font-light text-gray-200">
                 Đối tác tin cậy cung cấp các dòng thang máy, thang cuốn an toàn, bền bỉ và hiện đại nhất cho mọi công
                 trình.
             </p>
@@ -418,7 +499,8 @@
     <!-- VÌ SAO CHỌN NTD (About Us) -->
     <section id="about" class="py-16 md:py-20 lg:py-24 xl:py-32 bg-ntd-grey">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-center mb-8 md:mb-10 lg:mb-12 text-ntd-dark uppercase">
+            <h2
+                class="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-center mb-8 md:mb-10 lg:mb-12 text-ntd-dark uppercase">
                 VÌ SAO NÊN CHỌN NTD?
             </h2>
             <p class="text-center text-base md:text-lg max-w-3xl mx-auto mb-10 md:mb-12 lg:mb-16 text-gray-600">
@@ -484,10 +566,11 @@
                                         class="group bg-white rounded-[5px] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border-2 border-gray-200 hover:border-ntd-blue transition duration-500 transform hover:-translate-y-2">
                                         @if ($thangmay->image)
                                             <img src="{{ asset($thangmay->image) }}" alt="{{ $thangmay->title }}"
-                                                class="w-full object-cover group-hover:scale-105 transition duration-500 shadow-2xl border-4 border-white elevator-image cursor-pointer" style=" height: 480px;">
+                                                class="w-full object-cover group-hover:scale-105 transition duration-500 shadow-2xl border-4 border-white elevator-image cursor-pointer"
+                                                style=" height: 480px;">
                                         @else
-                                            <div
-                                                class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center" style=" height: 480px;">
+                                            <div class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center"
+                                                style=" height: 480px;">
                                                 <i class="fas fa-building text-white text-6xl opacity-50"></i>
                                             </div>
                                         @endif
@@ -677,23 +760,26 @@
                             <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
                                 <div
                                     class="project-card bg-gray-800 rounded-[5px] overflow-hidden shadow-2xl hover:shadow-ntd-light/50 transition duration-300 transform hover:-translate-y-1">
-                                    @if($project->image)
+                                    @if ($project->image)
                                         <img src="{{ asset($project->image) }}" alt="{{ $project->title }}"
                                             class="w-full object-cover" style=" height: 480px;">
                                     @else
-                                        <div class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center" style=" height: 480px;">
+                                        <div class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center"
+                                            style=" height: 480px;">
                                             <i class="fas fa-building text-white text-6xl opacity-50"></i>
                                         </div>
                                     @endif
                                     <div class="p-6">
-                                        <h3 class="text-xl font-heading font-bold text-ntd-light mb-1 uppercase line-clamp-2">
+                                        <h3
+                                            class="text-xl font-heading font-bold text-ntd-light mb-1 uppercase line-clamp-2">
                                             {{ $project->title }}
                                         </h3>
-                                        @if($project->address)
+                                        @if ($project->address)
                                             <p class="text-gray-400 text-sm mb-3">{{ $project->address }}</p>
                                         @endif
-                                        @if($project->description)
-                                            <p class="text-gray-300 text-sm line-clamp-2">{{ $project->description }}</p>
+                                        @if ($project->description)
+                                            <p class="text-gray-300 text-sm line-clamp-2">{{ $project->description }}
+                                            </p>
                                         @endif
                                     </div>
                                 </div>
@@ -764,26 +850,30 @@
                     <!-- Name Field -->
                     <div>
                         <label class="block text-gray-700 font-semibold mb-1 text-sm">
-                            <i class="fas fa-user text-ntd-blue mr-1"></i>Họ và Tên <span class="text-red-500">*</span>
+                            <i class="fas fa-user text-ntd-blue mr-1"></i>Họ và Tên <span
+                                class="text-red-500">*</span>
                         </label>
                         <input type="text" name="name" value="{{ old('name') }}"
                             placeholder="Nhập họ và tên của bạn"
                             class="w-full p-3 rounded-lg border @error('name') border-red-500 @else border-gray-300 @enderror focus:ring-2 focus:ring-ntd-light focus:border-ntd-light transition duration-200">
                         @error('name')
-                            <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+                            <p class="text-red-500 text-xs mt-1"><i
+                                    class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Phone Field -->
                     <div>
                         <label class="block text-gray-700 font-semibold mb-1 text-sm">
-                            <i class="fas fa-phone text-ntd-blue mr-1"></i>Số Điện Thoại <span class="text-red-500">*</span>
+                            <i class="fas fa-phone text-ntd-blue mr-1"></i>Số Điện Thoại <span
+                                class="text-red-500">*</span>
                         </label>
                         <input type="tel" name="phone" value="{{ old('phone') }}"
                             placeholder="Nhập số điện thoại của bạn"
                             class="w-full p-3 rounded-lg border @error('phone') border-red-500 @else border-gray-300 @enderror focus:ring-2 focus:ring-ntd-light focus:border-ntd-light transition duration-200">
                         @error('phone')
-                            <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+                            <p class="text-red-500 text-xs mt-1"><i
+                                    class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -796,7 +886,8 @@
                             placeholder="Nhập email của bạn (không bắt buộc)"
                             class="w-full p-3 rounded-lg border @error('email') border-red-500 @else border-gray-300 @enderror focus:ring-2 focus:ring-ntd-light focus:border-ntd-light transition duration-200">
                         @error('email')
-                            <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+                            <p class="text-red-500 text-xs mt-1"><i
+                                    class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -809,7 +900,8 @@
                             placeholder="Mô tả nhu cầu của bạn (Loại thang máy, tải trọng, số tầng...)"
                             class="w-full p-3 rounded-lg border @error('description') border-red-500 @else border-gray-300 @enderror focus:ring-2 focus:ring-ntd-light focus:border-ntd-light transition duration-200">{{ old('description') }}</textarea>
                         @error('description')
-                            <p class="text-red-500 text-xs mt-1"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
+                            <p class="text-red-500 text-xs mt-1"><i
+                                    class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -869,77 +961,69 @@
                     </div>
 
                     <div class="flex flex-wrap gap-3 mt-6">
-                        @if(get_config()->facebook_url)
+                        @if (get_config()->facebook_url)
                             <a href="{{ get_config()->facebook_url }}" target="_blank"
                                 class="w-10 h-10 bg-ntd-light rounded-full flex items-center justify-center hover:bg-white hover:text-ntd-dark transition duration-300 flex-shrink-0"
                                 aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         @endif
-                        @if(get_config()->zalo_url)
+                        @if (get_config()->zalo_url)
                             <a href="{{ get_config()->zalo_url }}" target="_blank"
                                 class="w-10 h-10 bg-ntd-light rounded-full flex items-center justify-center hover:bg-white hover:text-ntd-dark transition duration-300 flex-shrink-0"
                                 aria-label="Zalo">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-     x="0px" y="0px"
-     width="20" height="20"
-     viewBox="0 0 48 48">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20"
+                                    viewBox="0 0 48 48">
 
-  <path fill="#2962ff"
-        d="M15,36V6.827l-1.211-0.811C8.64,8.083,5,13.112,5,19v10c0,7.732,6.268,14,14,14h10
+                                    <path fill="#2962ff" d="M15,36V6.827l-1.211-0.811C8.64,8.083,5,13.112,5,19v10c0,7.732,6.268,14,14,14h10
            c4.722,0,8.883-2.348,11.417-5.931V36H15z" />
 
-  <path fill="#eee"
-        d="M29,5H19c-1.845,0-3.601,0.366-5.214,1.014C10.453,9.25,8,14.528,8,19
+                                    <path fill="#eee" d="M29,5H19c-1.845,0-3.601,0.366-5.214,1.014C10.453,9.25,8,14.528,8,19
            c0,6.771,0.936,10.735,3.712,14.607c0.216,0.301,0.357,0.653,0.376,1.022
            c0.043,0.835-0.129,2.365-1.634,3.742c-0.162,0.148-0.059,0.419,0.16,0.428
            c0.942,0.041,2.843-0.014,4.797-0.877c0.557-0.246,1.191-0.203,1.729,0.083
            C20.453,39.764,24.333,40,28,40c4.676,0,9.339-1.04,12.417-2.916
            C42.038,34.799,43,32.014,43,29V19C43,11.268,36.732,5,29,5z" />
 
-  <path fill="#2962ff"
-        d="M36.75,27C34.683,27,33,25.317,33,23.25s1.683-3.75,3.75-3.75
+                                    <path fill="#2962ff" d="M36.75,27C34.683,27,33,25.317,33,23.25s1.683-3.75,3.75-3.75
            s3.75,1.683,3.75,3.75S38.817,27,36.75,27z
            M36.75,21c-1.24,0-2.25,1.01-2.25,2.25s1.01,2.25,2.25,2.25S39,24.49,39,23.25
            S37.99,21,36.75,21z" />
 
-  <path fill="#2962ff"
-        d="M31.5,27h-1c-0.276,0-0.5-0.224-0.5-0.5V18h1.5V27z" />
+                                    <path fill="#2962ff" d="M31.5,27h-1c-0.276,0-0.5-0.224-0.5-0.5V18h1.5V27z" />
 
-  <path fill="#2962ff"
-        d="M27,19.75v0.519c-0.629-0.476-1.403-0.769-2.25-0.769
+                                    <path fill="#2962ff" d="M27,19.75v0.519c-0.629-0.476-1.403-0.769-2.25-0.769
            c-2.067,0-3.75,1.683-3.75,3.75S22.683,27,24.75,27
            c0.847,0,1.621-0.293,2.25-0.769V26.5c0,0.276,0.224,0.5,0.5,0.5h1v-7.25H27z
            M24.75,25.5c-1.24,0-2.25-1.01-2.25-2.25S23.51,21,24.75,21
            S27,22.01,27,23.25S25.99,25.5,24.75,25.5z" />
 
-  <path fill="#2962ff"
-        d="M21.25,18h-8v1.5h5.321L13,26h0.026c-0.163,0.211-0.276,0.463-0.276,0.75V27h7.5
+                                    <path fill="#2962ff" d="M21.25,18h-8v1.5h5.321L13,26h0.026c-0.163,0.211-0.276,0.463-0.276,0.75V27h7.5
            c0.276,0,0.5-0.224,0.5-0.5v-1h-5.321L21,19h-0.026c0.163-0.211,0.276-0.463,0.276-0.75V18z" />
 
-</svg>
+                                </svg>
 
                             </a>
                         @endif
-                        @if(get_config()->youtube_url)
+                        @if (get_config()->youtube_url)
                             <a href="{{ get_config()->youtube_url }}" target="_blank"
                                 class="w-10 h-10 bg-ntd-light rounded-full flex items-center justify-center hover:bg-white hover:text-ntd-dark transition duration-300 flex-shrink-0"
                                 aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                         @endif
-                        @if(get_config()->tiktok_url)
+                        @if (get_config()->tiktok_url)
                             <a href="{{ get_config()->tiktok_url }}" target="_blank"
                                 class="w-10 h-10 bg-ntd-light rounded-full flex items-center justify-center hover:bg-white hover:text-ntd-dark transition duration-300 flex-shrink-0"
                                 aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                         @endif
-                        @if(get_config()->instagram_url)
+                        @if (get_config()->instagram_url)
                             <a href="{{ get_config()->instagram_url }}" target="_blank"
                                 class="w-10 h-10 bg-ntd-light rounded-full flex items-center justify-center hover:bg-white hover:text-ntd-dark transition duration-300 flex-shrink-0"
                                 aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         @endif
-                        @if(get_config()->linkedin_url)
+                        @if (get_config()->linkedin_url)
                             <a href="{{ get_config()->linkedin_url }}" target="_blank"
                                 class="w-10 h-10 bg-ntd-light rounded-full flex items-center justify-center hover:bg-white hover:text-ntd-dark transition duration-300 flex-shrink-0"
                                 aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         @endif
-                        @if(get_config()->twitter_url)
+                        @if (get_config()->twitter_url)
                             <a href="{{ get_config()->twitter_url }}" target="_blank"
                                 class="w-10 h-10 bg-ntd-light rounded-full flex items-center justify-center hover:bg-white hover:text-ntd-dark transition duration-300 flex-shrink-0"
                                 aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -972,8 +1056,8 @@
                 <div>
                     <h4 class="text-xl font-heading font-semibold mb-4 text-ntd-light uppercase">DỊCH VỤ</h4>
                     <ul class="space-y-3 text-gray-300">
-                        <li><a href="#contact"
-                                class="hover:text-ntd-light transition duration-300 hover:underline">Tư Vấn Thiết Kế &
+                        <li><a href="#contact" class="hover:text-ntd-light transition duration-300 hover:underline">Tư
+                                Vấn Thiết Kế &
                                 Lắp Đặt</a></li>
                         <li><a href="#services"
                                 class="hover:text-ntd-light transition duration-300 hover:underline">Bảo Trì & Bảo
@@ -998,11 +1082,13 @@
 
     <!-- Image Lightbox Modal -->
     <div id="imageModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 items-center justify-center p-4">
-        <button id="modalClose" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 transition z-50">
+        <button id="modalClose"
+            class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 transition z-50">
             <i class="fas fa-times"></i>
         </button>
         <div class="max-w-7xl max-h-full flex items-center justify-center">
-            <img id="modalImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
+            <img id="modalImage" src="" alt=""
+                class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
         </div>
     </div>
 
@@ -1104,39 +1190,43 @@
                     const formData = new FormData(form);
 
                     fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>GỬI THÔNG TIN NGAY';
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML =
+                                '<i class="fas fa-paper-plane mr-2"></i>GỬI THÔNG TIN NGAY';
 
-                        if (data.success) {
-                            toastr.success(data.message || 'Cảm ơn bạn đã đăng ký! Chúng tôi sẽ liên hệ với bạn trong vòng 30 phút.');
-                            form.reset(); // Clear form
-                        } else {
-                            // Hiển thị lỗi validation từ server
-                            if (data.errors) {
-                                for (let field in data.errors) {
-                                    const input = form.querySelector(`[name="${field}"]`);
-                                    if (input) {
-                                        showError(input, data.errors[field][0]);
+                            if (data.success) {
+                                toastr.success(data.message ||
+                                    'Cảm ơn bạn đã đăng ký! Chúng tôi sẽ liên hệ với bạn trong vòng 30 phút.'
+                                    );
+                                form.reset(); // Clear form
+                            } else {
+                                // Hiển thị lỗi validation từ server
+                                if (data.errors) {
+                                    for (let field in data.errors) {
+                                        const input = form.querySelector(`[name="${field}"]`);
+                                        if (input) {
+                                            showError(input, data.errors[field][0]);
+                                        }
                                     }
                                 }
+                                toastr.error(data.message || 'Có lỗi xảy ra, vui lòng thử lại!');
                             }
-                            toastr.error(data.message || 'Có lỗi xảy ra, vui lòng thử lại!');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        submitButton.disabled = false;
-                        submitButton.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>GỬI THÔNG TIN NGAY';
-                        toastr.error('Có lỗi xảy ra, vui lòng thử lại!');
-                    });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            submitButton.disabled = false;
+                            submitButton.innerHTML =
+                                '<i class="fas fa-paper-plane mr-2"></i>GỬI THÔNG TIN NGAY';
+                            toastr.error('Có lỗi xảy ra, vui lòng thử lại!');
+                        });
                 });
 
                 // Hàm hiển thị lỗi
@@ -1183,7 +1273,6 @@
                 @endif
             }
         });
-
     </script>
     <script>
         // JavaScript cho Mobile Menu Slide from Right
@@ -1632,7 +1721,8 @@
             // Cập nhật dots
             function updateProjectDots() {
                 const dots = projectDotsContainer.querySelectorAll('button');
-                const realIndex = ((projectCurrentIndex - projectSlidesPerView) % projectTotalSlides + projectTotalSlides) % projectTotalSlides;
+                const realIndex = ((projectCurrentIndex - projectSlidesPerView) % projectTotalSlides + projectTotalSlides) %
+                    projectTotalSlides;
                 dots.forEach((dot, index) => {
                     if (index === realIndex) {
                         dot.className = 'w-8 h-3 rounded-full bg-ntd-light transition-all duration-300';
@@ -1787,8 +1877,12 @@
             if (projectPrevBtn) projectPrevBtn.addEventListener('click', prevProjectSlide);
             if (projectNextBtn) projectNextBtn.addEventListener('click', nextProjectSlide);
 
-            projectSliderContainer.addEventListener('touchstart', projectTouchStart, { passive: false });
-            projectSliderContainer.addEventListener('touchmove', projectTouchMove, { passive: false });
+            projectSliderContainer.addEventListener('touchstart', projectTouchStart, {
+                passive: false
+            });
+            projectSliderContainer.addEventListener('touchmove', projectTouchMove, {
+                passive: false
+            });
             projectSliderContainer.addEventListener('touchend', projectTouchEnd);
 
             projectSliderContainer.addEventListener('mousedown', projectTouchStart);
@@ -1881,6 +1975,36 @@
             }
         });
     </script>
+
+    <!-- Floating Buttons -->
+    @if(get_config()->zalo_url)
+    <a href="{{ get_config()->zalo_url }}" target="_blank" class="floating-btn floating-zalo" title="Chat Zalo">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
+            <path fill="#2962ff"
+                d="M15,36V6.827l-1.211-0.811C8.64,8.083,5,13.112,5,19v10c0,7.732,6.268,14,14,14h10	c4.722,0,8.883-2.348,11.417-5.931V36H15z">
+            </path>
+            <path fill="#eee"
+                d="M29,5H19c-1.845,0-3.601,0.366-5.214,1.014C10.453,9.25,8,14.528,8,19	c0,6.771,0.936,10.735,3.712,14.607c0.216,0.301,0.357,0.653,0.376,1.022c0.043,0.835-0.129,2.365-1.634,3.742	c-0.162,0.148-0.059,0.419,0.16,0.428c0.942,0.041,2.843-0.014,4.797-0.877c0.557-0.246,1.191-0.203,1.729,0.083	C20.453,39.764,24.333,40,28,40c4.676,0,9.339-1.04,12.417-2.916C42.038,34.799,43,32.014,43,29V19C43,11.268,36.732,5,29,5z">
+            </path>
+            <path fill="#2962ff"
+                d="M36.75,27C34.683,27,33,25.317,33,23.25s1.683-3.75,3.75-3.75s3.75,1.683,3.75,3.75	S38.817,27,36.75,27z M36.75,21c-1.24,0-2.25,1.01-2.25,2.25s1.01,2.25,2.25,2.25S39,24.49,39,23.25S37.99,21,36.75,21z">
+            </path>
+            <path fill="#2962ff" d="M31.5,27h-1c-0.276,0-0.5-0.224-0.5-0.5V18h1.5V27z"></path>
+            <path fill="#2962ff"
+                d="M27,19.75v0.519c-0.629-0.476-1.403-0.769-2.25-0.769c-2.067,0-3.75,1.683-3.75,3.75	S22.683,27,24.75,27c0.847,0,1.621-0.293,2.25-0.769V26.5c0,0.276,0.224,0.5,0.5,0.5h1v-7.25H27z M24.75,25.5	c-1.24,0-2.25-1.01-2.25-2.25S23.51,21,24.75,21S27,22.01,27,23.25S25.99,25.5,24.75,25.5z">
+            </path>
+            <path fill="#2962ff"
+                d="M21.25,18h-8v1.5h5.321L13,26h0.026c-0.163,0.211-0.276,0.463-0.276,0.75V27h7.5	c0.276,0,0.5-0.224,0.5-0.5v-1h-5.321L21,19h-0.026c0.163-0.211,0.276-0.463,0.276-0.75V18z">
+            </path>
+        </svg>
+    </a>
+    @endif
+
+    @if(get_config()->hotline)
+    <a href="tel:{{ get_config()->hotline }}" class="floating-btn floating-phone" title="Gọi ngay: {{ get_config()->hotline }}">
+        <i class="fas fa-phone-alt"></i>
+    </a>
+    @endif
 </body>
 
 </html>
