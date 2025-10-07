@@ -77,7 +77,7 @@
 
         /* Thiết lập hình nền và lớp phủ cho Hero Section */
         .hero-section {
-            background-image: url('https://placehold.co/1920x800/1f2937/ffffff?text=ELEVATOR+SOLUTION');
+            background-image: url('/icons/banner.jpg');
             background-size: cover;
             background-position: center;
             min-height: 80vh;
