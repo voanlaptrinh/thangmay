@@ -567,7 +567,7 @@
                                         @if ($thangmay->image)
                                             <img src="{{ asset($thangmay->image) }}" alt="{{ $thangmay->title }}"
                                                 class="w-full object-cover group-hover:scale-105 transition duration-500 shadow-2xl border-4 border-white elevator-image cursor-pointer"
-                                                style=" height: 480px;">
+                                                style="height: 480px; user-select: none; -webkit-tap-highlight-color: transparent;">
                                         @else
                                             <div class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center"
                                                 style=" height: 480px;">
@@ -762,7 +762,7 @@
                                     class="project-card bg-gray-800 rounded-[5px] overflow-hidden shadow-2xl hover:shadow-ntd-light/50 transition duration-300 transform hover:-translate-y-1">
                                     @if ($project->image)
                                         <img src="{{ asset($project->image) }}" alt="{{ $project->title }}"
-                                            class="w-full object-cover" style=" height: 480px;">
+                                            class="w-full object-cover project-image cursor-pointer" style="height: 480px; user-select: none; -webkit-tap-highlight-color: transparent;">
                                     @else
                                         <div class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center"
                                             style=" height: 480px;">
@@ -1531,8 +1531,8 @@
             function touchStart(e) {
                 if (isTransitioning) return;
 
-                // Không bắt sự kiện nếu click vào link
-                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                // Không bắt sự kiện nếu click vào link hoặc elevator-image
+                if (e.target.tagName === 'A' || e.target.closest('a') || e.target.classList.contains('elevator-image')) {
                     return;
                 }
 
@@ -1811,7 +1811,8 @@
             function projectTouchStart(e) {
                 if (projectIsTransitioning) return;
 
-                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                // Không bắt sự kiện nếu click vào link hoặc project-image
+                if (e.target.tagName === 'A' || e.target.closest('a') || e.target.classList.contains('project-image')) {
                     return;
                 }
 
@@ -1941,13 +1942,43 @@
         const modalClose = document.getElementById('modalClose');
 
         elevatorImages.forEach(function(image) {
-            image.addEventListener('click', function() {
+            // Hỗ trợ cả click và touch event cho mobile
+            const openModal = function(e) {
                 modalImage.src = this.src;
                 modalImage.alt = this.alt;
                 imageModal.classList.remove('hidden');
                 imageModal.classList.add('flex');
                 document.body.style.overflow = 'hidden';
-            });
+            };
+
+            image.addEventListener('click', openModal);
+            image.addEventListener('touchstart', function(e) {
+                // Chỉ cần 1 touch, không phải multi-touch
+                if (e.touches.length === 1) {
+                    openModal.call(this, e);
+                }
+            }, { passive: true });
+        });
+
+        // Image Lightbox for Project Images
+        const projectImages = document.querySelectorAll('.project-image');
+        projectImages.forEach(function(image) {
+            // Hỗ trợ cả click và touch event cho mobile
+            const openModal = function(e) {
+                modalImage.src = this.src;
+                modalImage.alt = this.alt;
+                imageModal.classList.remove('hidden');
+                imageModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            };
+
+            image.addEventListener('click', openModal);
+            image.addEventListener('touchstart', function(e) {
+                // Chỉ cần 1 touch, không phải multi-touch
+                if (e.touches.length === 1) {
+                    openModal.call(this, e);
+                }
+            }, { passive: true });
         });
 
         function closeImageModal() {
@@ -1958,6 +1989,10 @@
 
         if (modalClose) {
             modalClose.addEventListener('click', closeImageModal);
+            modalClose.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                closeImageModal();
+            }, { passive: false });
         }
 
         if (imageModal) {
@@ -1966,6 +2001,11 @@
                     closeImageModal();
                 }
             });
+            imageModal.addEventListener('touchstart', function(e) {
+                if (e.target === imageModal) {
+                    closeImageModal();
+                }
+            }, { passive: true });
         }
 
         // ESC key to close modal
