@@ -484,7 +484,7 @@
                                         class="group bg-white rounded-[5px] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.25)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.35)] border-2 border-gray-200 hover:border-ntd-blue transition duration-500 transform hover:-translate-y-2">
                                         @if ($thangmay->image)
                                             <img src="{{ asset($thangmay->image) }}" alt="{{ $thangmay->title }}"
-                                                class="w-full object-cover group-hover:scale-105 transition duration-500 shadow-2xl border-4 border-white" style=" height: 480px;">
+                                                class="w-full object-cover group-hover:scale-105 transition duration-500 shadow-2xl border-4 border-white elevator-image cursor-pointer" style=" height: 480px;">
                                         @else
                                             <div
                                                 class="w-full bg-gradient-to-br from-ntd-blue to-ntd-light flex items-center justify-center" style=" height: 480px;">
@@ -995,6 +995,17 @@
             </div>
         </div>
     </footer>
+
+    <!-- Image Lightbox Modal -->
+    <div id="imageModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 items-center justify-center p-4">
+        <button id="modalClose" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300 transition z-50">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="max-w-7xl max-h-full flex items-center justify-center">
+            <img id="modalImage" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl">
+        </div>
+    </div>
+
     <script src="{{ asset('/admin/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('/admin/js/toastr.min.js') }}"></script>
     <script>
@@ -1826,6 +1837,47 @@
                     navLogo.classList.remove('opacity-100');
                     navLogo.classList.add('opacity-0');
                 }
+            }
+        });
+
+        // Image Lightbox for Elevator Images
+        const elevatorImages = document.querySelectorAll('.elevator-image');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+
+        elevatorImages.forEach(function(image) {
+            image.addEventListener('click', function() {
+                modalImage.src = this.src;
+                modalImage.alt = this.alt;
+                imageModal.classList.remove('hidden');
+                imageModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeImageModal() {
+            imageModal.classList.remove('flex');
+            imageModal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        if (modalClose) {
+            modalClose.addEventListener('click', closeImageModal);
+        }
+
+        if (imageModal) {
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal) {
+                    closeImageModal();
+                }
+            });
+        }
+
+        // ESC key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && imageModal && !imageModal.classList.contains('hidden')) {
+                closeImageModal();
             }
         });
     </script>
